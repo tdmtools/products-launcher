@@ -1,6 +1,3 @@
-version: '3'
-
-
 services:
 
   nats-server:
@@ -10,7 +7,8 @@ services:
     build:
       context: ./client-gateway
       dockerfile: dockerfile.prod
-    image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/client-gateway
+    image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/client-gateway
+    # image: client-gateway-prod
     ports:
       - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
     environment:
@@ -22,7 +20,8 @@ services:
     build:
       context: ./auth-ms
       dockerfile: dockerfile.prod
-    image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/auth-ms
+    image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/auth-ms
+    # image: auth-ms-prod
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
@@ -33,7 +32,8 @@ services:
     build:
       context: ./products-ms
       dockerfile: dockerfile.prod
-    image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/products-ms
+    image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/products-ms
+    # image: products-ms-prod
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
@@ -47,7 +47,8 @@ services:
       dockerfile: dockerfile.prod
       args:
         - ORDERS_DATABASE_URL=${ORDERS_DATABASE_URL}
-    image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/orders-ms
+    image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/orders-ms
+    # image: orders-ms-prod
     environment:
       - PORT=3000
       - DATABASE_URL=${ORDERS_DATABASE_URL}
@@ -61,14 +62,15 @@ services:
     build:
       context: ./payments-ms
       dockerfile: dockerfile.prod
-    image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/payments-ms
+    image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/payments-ms
+    # image: payments-ms
     ports:
       - ${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}
     environment:
       - PORT=${PAYMENTS_MS_PORT}
       - NATS_SERVERS=nats://nats-server:4222
       - STRIPE_SECRET=${STRIPE_SECRET}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
       - STRIPE_SUCCESS_URL=${STRIPE_SUCCESS_URL}
       - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
       - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
-      
