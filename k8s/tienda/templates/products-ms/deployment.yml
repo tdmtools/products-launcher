@@ -18,7 +18,7 @@ spec:
         app: products-ms
     spec:
       containers:
-      - image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/products-ms
+      - image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/products-ms
         name: products-ms
         env:
         - name: PORT
@@ -27,5 +27,4 @@ spec:
           value: "nats://nats"
         - name: DATABASE_URL
           value: "file:./dev.db"
-        resources: {}
 status: {}

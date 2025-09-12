@@ -18,22 +18,22 @@ spec:
         app: auth-ms
     spec:
       containers:
-      - image: northamerica-northeast1-docker.pkg.dev/tienda-microservices/image-registry/auth-ms
+      - image: northamerica-south1-docker.pkg.dev/orders-portal-447714/nestjs-course/image-registry/auth-ms
         name: auth-ms
         env:
         - name: PORT
-          value: "3000"
+          value: "8080"
         - name: NATS_SERVERS
           value: "nats://nats"
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
               name: auth-secrets
-              key: DATABASE_URL
+              key: database_url
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
               name: auth-secrets
-              key: JWT_SECRET
+              key: jwt_secret
         resources: {}
 status: {}
